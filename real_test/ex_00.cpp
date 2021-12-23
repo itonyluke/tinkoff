@@ -1,8 +1,5 @@
 #include "iostream"
 
-#define DEFAULT "\033[0m"
-#define YELLOW "\033[33m"
-
 typedef struct s_s
 {
 	std::string arr_str[3];
