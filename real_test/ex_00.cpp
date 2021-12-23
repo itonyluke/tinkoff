@@ -1,5 +1,8 @@
 #include "iostream"
 
+#define DEFAULT "\033[0m"
+#define YELLOW "\033[33m"
+
 typedef struct s_s
 {
 	std::string arr_str[3];
@@ -8,9 +11,8 @@ typedef struct s_s
 
 std::string skip_spaces_at_the_beginning(std::string &str)
 {
-	unsigned int i;
+	unsigned int i, len;
 	std::string str1;
-	unsigned int len;
 
 	i = 0;
 	while (std::isspace(str[i]))
@@ -32,46 +34,36 @@ std::string skip_spaces_at_the_end(std::string &str)
 	return (str1);
 }
 
-void save_three_clean_strings_in_a_structure(std::string &str, t_s &s)
-{
-	unsigned int i, j;
-	unsigned int len;
-	std::string str2;
-	std::string str3;
-	std::string str5;
-	std::string str6;
-
-	i = j = 0;
-	len = str.length();
-	while (std::isgraph(str[i]))
-		i++;
-	s.arr_str[0] = str.substr(0, i);
-	str2 = str.substr(i, len);
-	str3 = skip_spaces_at_the_beginning(str2);
-	i = 0;
-	while (std::isgraph(str3[i]))
-		i++;
-	s.arr_str[1] = str3.substr(0, i);
-	str5 = str3.substr(i, len);
-	str6 = skip_spaces_at_the_beginning(str5);
-	i = 0;
-	while (std::isgraph(str6[i]))
-		i++;
-	s.arr_str[2] = str6.substr(0, i);
-	return ;
-}
-
-unsigned int return_the_position_of_space(std::string &str)
+unsigned int find_space(const std::string &str)
 {
 	unsigned int i;
 
 	i = 0;
-	while (str[i] != ' ')
+	while (std::isgraph(str[i]))
 		i++;
 	return (i);
 }
 
-void check_strings(t_s &s)
+void save_three_clean_strings_in_a_structure(std::string &str, t_s &s)
+{
+	unsigned int i, len;
+	std::string str1, str2, str3, str4;
+
+	len = str.length();
+	i = find_space(str);
+	s.arr_str[0] = str.substr(0, i);
+	str1 = str.substr(i, len);
+	str2 = skip_spaces_at_the_beginning(str1);
+	i = find_space(str2);
+	s.arr_str[1] = str2.substr(0, i);
+	str3 = str2.substr(i, len);
+	str4 = skip_spaces_at_the_beginning(str3);
+	i = find_space(str4);
+	s.arr_str[2] = str4.substr(0, i);
+	return ;
+}
+
+void check_strings_if_empty(t_s &s)
 {
 	unsigned int i;
 
@@ -81,49 +73,46 @@ void check_strings(t_s &s)
 	if (i == 3)
 		return ;
 	else
-	{
-		std::cout << "one of the strings is empty" << std::endl;
 		exit(EXIT_FAILURE);
-	}
 }
 
 void check_that_m_is_less_than_k_is_less_than_n(t_s &s)
 {
 	if (s.arr_int[2] > s.arr_int[1])
-	{
 		exit(EXIT_FAILURE);
-	}
 	else if (s.arr_int[1] > s.arr_int[0])
-	{
 		exit(EXIT_FAILURE);
-	}
+	else if (s.arr_int[0] == s.arr_int[1] && s.arr_int[1] == s.arr_int[2])
+		exit(EXIT_FAILURE);
 }
 
-bool check_int_range(unsigned int &i)
+void check_int_range(unsigned int &i)
 {
 	if (i < 1 || i > 200)
 		exit(EXIT_FAILURE);
-	return (1);
 }
-void	output_the_amount_of_coins_made(unsigned int &counter)
+
+void convert_string_to_int(t_s &s)
 {
-	std::cout << std::endl;
-	if (counter == 1)
-		std::cout << "there is " << counter << " coin made" << std::endl;
-	else if (counter == 0)
-		std::cout << "there are no coins made" << std::endl;
-	else
-		std::cout << "there are " << counter << " coins made" << std::endl;
+	try
+	{
+		s.arr_int[0] = std::stoi(s.arr_str[0]);
+		s.arr_int[1] = std::stoi(s.arr_str[1]);
+		s.arr_int[2] = std::stoi(s.arr_str[2]);
+	}
+	catch (std::invalid_argument)
+	{
+		exit(EXIT_FAILURE);
+	}
 }
 
 int main(void)
 {
 	t_s s;
 	unsigned int n, k, m, counter;
-	std::string str, str1, str2, str3;
+	std::string str, str1, str2;
 
 	n = k = m = counter = 0;
-
 	std::getline(std::cin, str);
 	if (str.empty())
 		exit(EXIT_FAILURE);
@@ -132,17 +121,18 @@ int main(void)
 		str1 = skip_spaces_at_the_beginning(str);
 		str2 = skip_spaces_at_the_end(str1);
 		save_three_clean_strings_in_a_structure(str2, s);
-		check_strings(s);
-		n = s.arr_int[0] = std::stoi(s.arr_str[0]);
-		k = s.arr_int[1] = std::stoi(s.arr_str[1]);
-		m = s.arr_int[2] = std::stoi(s.arr_str[2]);
+		check_strings_if_empty(s);
+		convert_string_to_int(s);
 		for (unsigned int i = 0; i < 3; i++)
 			check_int_range(s.arr_int[i]);
 		check_that_m_is_less_than_k_is_less_than_n(s);
+		n = s.arr_int[0];
+		k = s.arr_int[1];
+		m = s.arr_int[2];
 		while (n >= k)
 		{
 			n = n - s.arr_int[1];
-			while (k > m)
+			while (k >= m)
 			{
 				k -= m;
 				counter++;
