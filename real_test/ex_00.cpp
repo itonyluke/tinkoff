@@ -104,20 +104,30 @@ void check_that_m_is_less_than_k_is_less_than_n(t_s &s)
 	}
 }
 
-void check_int_range(unsigned int &i)
+bool check_int_range(unsigned int &i)
 {
 	if (i < 1 || i > 200)
 		exit(EXIT_FAILURE);
+	return (1);
+}
+void	output_the_amount_of_coins_made(unsigned int &counter)
+{
+	std::cout << std::endl;
+	if (counter == 1)
+		std::cout << "there is " << counter << " coin made" << std::endl;
+	else if (counter == 0)
+		std::cout << "there are no coins made" << std::endl;
+	else
+		std::cout << "there are " << counter << " coins made" << std::endl;
 }
 
 int main(void)
 {
 	t_s s;
-	unsigned int i, j, n, k, m, counter, hold;
+	unsigned int i, j, n, k, m, counter, one, two, hold, hold1;
 	std::string str, str1, str2, str3;
-	int hold1;
 
-	i = j = n = k = m = counter = 0;
+	i = j = n = k = m = counter = one = two = hold = hold1 = 0;
 
 	std::getline(std::cin, str);
 	if (str.empty())
@@ -134,65 +144,140 @@ int main(void)
 		for (unsigned int i = 0; i < 3; i++)
 			check_int_range(s.arr_int[i]);
 		check_that_m_is_less_than_k_is_less_than_n(s);
-		std::cout << "n > " << s.arr_int[0] << std::endl;
-		std::cout << "k > " << s.arr_int[1] << std::endl;
-		std::cout << "m > " << s.arr_int[2] << std::endl;
 
-		hold = s.arr_int[0] - s.arr_int[1];
-		std::cout << hold << std::endl;
-		hold1 = s.arr_int[1] - s.arr_int[2];
-		std::cout << hold1<< std::endl;
-		hold1 = hold1 - s.arr_int[2];
-		std::cout << hold1<< std::endl;
-		if (hold1 < (int)s.arr_int[2])
-			hold += hold1;
-		std::cout << hold << std::endl;
+//		std::cout << std::endl;
+//		std::cout << "n = " << s.arr_int[0] << std::endl;
+//		std::cout << "k = " << s.arr_int[1] << std::endl;
+//		std::cout << "m = " << s.arr_int[2] << std::endl;
 
-//		hold1 = s.arr_int[1];
-//		while (1)
+		n = s.arr_int[0];
+		k = s.arr_int[1];
+		m = s.arr_int[2];
+
+		while (n >= k)
+		{
+			n = n - s.arr_int[1];
+			while (k > m)
+			{
+				k -= m;
+				counter++;
+			}
+			n += k;
+			k = s.arr_int[1];
+		}
+		std::cout << counter << std::endl;
+	}
+
+//		hold = n;
+//		while (hold > k)
 //		{
-//			if (hold1 <= (int)s.arr_int[2])
-//				break ;
-//			else
+//			std::cout << "n = " << n << std::endl;
+//			std::cout << "k = " << k << std::endl;
+//			hold = n - k;
+//			std::cout << "hold = " << hold << std::endl;
+//
+//			hold1 = k - m;
+//			counter++;
+//			while (hold1 > m)
 //			{
-//				hold1 = s.arr_int[1] - s.arr_int[2];
+//				hold1 = hold1 - m;
 //				counter++;
+//				output_the_amount_of_coins_made(counter);
+//			}
+//			if (hold1 < m)
+//			{
+//				hold = hold + hold1;
+////				continue;
 //			}
 //		}
-//		std::cout << hold1<< std::endl;
-//		std::cout << counter << std::endl;
-	}
-//	i = return_the_position_of_space(str);
-//	str1 = str.substr(0, i);
-//	i = return_the_position_of_space(str);
-//	j = i;
-//	str2 = str.substr(j, i);
-//	i = return_the_position_of_space(str);
-//	j += i;
-//	str3 = str.substr(j, i);
 
-//	n = std::stoi(str1);
-//	k = std::stoi(str2);
-//	m = std::stoi(str3);
-//	if (!(str.empty()))
-//		std::cout << "input string > "<< str << std::endl;
-//	if (!(str1.empty()))
-//		std::cout << "substr1 > " << str1 << std::endl;
-//	if (!(str2.empty()))
-//		std::cout << "substr2 > " << str2 << std::endl;
-//	if (!(str3.empty()))
-//		std::cout << "substr3 > " << str3 << std::endl;
+//		hold = n - k; //10 - 5 = 5; hold = 5;
+//		while (1)
+//		{
+//			if (hold1 != 0)
+//				hold += hold1;
+//			if (hold > k) // if (5 > 5)
+//			{
+//				std::cout << "h = " << hold << std::endl;
 //
-//	if (m > k || k > n)
-//	{
-//		std::cout << "wrong" << std::endl;
-//		exit(EXIT_FAILURE);
-//	}
-//	else
-//	{
-//		hold = n - k;
-//		std::cout << "hold >" << hold << std::endl;
-//	}
+//				hold1 = k - m; //hold1 = 5 - 2; hold1 = 3;
+//				std::cout << "h1 = " << hold1 << std::endl;
+//				counter++;
+//				if (hold1 < m) // if (hold1 < 2); if (3 < 2)
+//				{
+//					output_the_amount_of_coins_made(counter);
+//					std::cout << "the amount of silver billet left is less than needed for a new coin" << std::endl;
+//					std::cout << "h1 = " << hold1 << std::endl;
+//					continue ;
+//				}
+//				else if (hold1 > m) // if (hold1 > 2); if (3 > 2)
+//				{
+//					hold1 = hold1 - m; // hold1 = 3 - 2; hold1 = 1;
+//					std::cout << "h1 = " << hold1 << std::endl;
+//					counter++;
+//					output_the_amount_of_coins_made(counter);
+//				}
+//			}
+//			else if (hold < k) // if (5 < 5)
+//			{
+//				std::cout << "the amount of silver left is less than needed for a new billet" << std::endl;
+//				std::cout << "h = " << hold << std::endl;
+//				output_the_amount_of_coins_made(counter);
+//				break ;
+//			}
+//		}
+
+//		one = n - k;
+//		std::cout << "\n" <<  n << " - " << k << " = " << one << std::endl;
+//
+//		two = k - m;
+//		std::cout << k << " - " << m << " = " << two << std::endl;
+//		counter++;
+//
+//		std::cout << two << " - " << m << " = ";
+//		two = two - m;
+//		std::cout << two << std::endl;
+//		counter++;
+//
+//		std::cout << two << " < " << m << "\nso ";
+//		std::cout << one << " += " << two;
+//		if (two < m)
+//			one += two;
+//		std::cout << " = " << one << std::endl << std::endl;
+//
+//		std::cout << one << " - " << k << " = ";
+//		one = one - k;
+//		std::cout << one << std::endl;
+//
+//		two = k - m;
+//		std::cout << k << " - " << m << " = " << two << std::endl;
+//		counter++;
+//
+//		std::cout << two << " - " << m << " = ";
+//		two = two - m;
+//		std::cout << two << std::endl;
+//		counter++;
+//
+//		std::cout << two << " < " << m << "\nso ";
+//		std::cout << one << " += " << two;
+//		if (two < m)
+//			one += two;
+//		std::cout << " = " << one << std::endl << std::endl;
+//
+//		std::cout << one << " < " << k << "\nso ";
+//		if (one < k)
+//		{
+//			std::cout << "there are " << counter << " coins made" << std::endl;
+//			return (0);
+//		}
+
+
+
+
+
+
+
+
 
 	return (0);
 }
