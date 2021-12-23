@@ -8,11 +8,9 @@ void check_int(int &i)
 
 int main(void)
 {
-	int i;
-	int ii;
+	int i, ii;
 
-	i = 0;
-	ii = 0;
+	i = ii = 0;
 	std::cin >> i;
 	check_int(i);
 	std::cin >> ii;
