@@ -1,0 +1,16 @@
+<toolSet name="External Tools">
+  <tool name="build" showInMainMenu="false" showInEditor="false" showInProject="false" showInSearchPopup="false" disabled="false" useConsole="true" showConsoleOnStdOut="false" showConsoleOnStdErr="false" synchronizeAfterRun="true">
+    <exec>
+      <option name="COMMAND" value="clang++" />
+      <option name="PARAMETERS" value="-g ex_01.cpp" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/21schoolmain/personal/cpp/tinkoff/real_test/ex_01" />
+    </exec>
+  </tool>
+  <tool name="clean" showInMainMenu="false" showInEditor="false" showInProject="false" showInSearchPopup="false" disabled="false" useConsole="true" showConsoleOnStdOut="false" showConsoleOnStdErr="false" synchronizeAfterRun="true">
+    <exec>
+      <option name="COMMAND" value="rm" />
+      <option name="PARAMETERS" value="a.out" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/21schoolmain/personal/cpp/tinkoff/real_test/ex_01" />
+    </exec>
+  </tool>
+</toolSet>
