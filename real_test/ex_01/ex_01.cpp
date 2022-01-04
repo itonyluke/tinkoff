@@ -28,10 +28,16 @@ unsigned int sum_up_int_array(unsigned int (&arr)[SIZE])
 		s += arr[i];
 	res = s % (SIZE);
 	if (res == 0)
+	{
+		std::cout << std::endl;
 		return (s);
+	}
 	else
 	{
-		std::cout << "sum is not even,\ntry again" << std::endl;
+		/* std::cout << std::endl; */
+		/* std::cout << SIZE << " integers provided" << std::endl; */
+		/* std::cout << "sum is " << s << std::endl; */
+		/* std::cout << "this sum cannot be divided evenly" << std::endl; */
 		exit(EXIT_FAILURE);
 	}
 }
@@ -94,11 +100,10 @@ int main(void)
 	initialize_array_variables_to_zero(arr);
 	for (unsigned int i = 0; i < SIZE; i++)
 		std::cin >> arr[i];
-	std::cout << std::endl;
 	s = sum_up_int_array(arr);
-	std::cout << "sum\t" << s << std::endl;
+	/* std::cout << "sum\t" << s << std::endl; */
 	average = s/SIZE;
-	std::cout << "average\t" << average << std::endl;
+	/* std::cout << "average\t" << average << std::endl; */
 	while (i < SIZE)
 	{
 		if (arr[i] > average)
@@ -107,9 +112,9 @@ int main(void)
 	}
 	std::cout << counter << std::endl;
 
-//	bubble_sort(arr);
-//	std::cout << std::endl;
-//	equalize(arr, average);
-//	output_int_array(arr);
+	/* bubble_sort(arr); */
+	/* std::cout << std::endl; */
+	/* equalize(arr, average); */
+	/* output_int_array(arr); */
 	return (0);
 }
